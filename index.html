@@ -1,0 +1,209 @@
+<!--
+  Copyright 2018 The Distill Template Authors
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!doctype html>
+
+<head>
+  <title>E3B</title>
+  <meta name="description" content="Web publication for &quot;Exploration via Elliptical Episodic Bonuses&quot;."/>
+  <!-- TODO: Need to add urls to images for metadata -->
+  <meta property="og:url" content="https://e3b.github.io"/>
+  <meta property="og:title" content="E3B"/>
+  <meta property="og:description" content="Web publication for &quot;Exploration via Elliptical Episodic Bonuses&quot;" />
+  <meta property="og:image" content="og-image.png"/>
+  <meta property="og:image:url"  content="og-image.png"/>
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:title" content="E3B"/>
+  <meta name="twitter:description" content="Web publication for &quot;Exploration via Elliptical Episodic Bonuses&quot;."/>
+  <meta name="twitter:image" content=""/>
+  <meta name="twitter:image:secure_url" content=""/> 
+
+  <script>
+    console.log = function() {};
+    console.groupCollapsed = function() {};
+    console.debug = function() {};
+  </script>
+  <script src="dist/template.v2.js"></script>
+
+<!--   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+        crossorigin="anonymous"> -->
+  <link rel="stylesheet" href="dist/bootstrap.forms.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+          crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/p5@1.2.0/lib/p5.js"></script>
+  <script src=https://cdnjs.cloudflare.com/ajax/libs/seedrandom/2.3.10/seedrandom.min.js></script>
+
+  <link rel="stylesheet" href="dist/demo.css">
+
+  <!--SCRIPTS DEPENDENCIES-->
+
+  <!--  @TODO: Add GA  <script async src="https://www.googletagmanager.com/gtag/js"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    </script> -->
+</script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf8">
+
+</head>
+
+<body>
+  <d-front-matter>
+    <script id='distill-front-matter' type="text/json">{
+    "title": "Exploration via Elliptical Episodic Bonuses",
+    "description": "Going beyond count-based exploration for procedurally-generated worlds.",
+    "published": "September 14, 2022",
+    "authors": [
+      {
+        "author":"Mikael Henaff",
+        "authorURL":"http://www.mikaelhenaff.com/",
+        "affiliations": [
+          {"name": "Meta AI", "url":"https://ai.facebook.com/"}]
+      },
+      {
+        "author":"Roberta Raileanu",
+        "authorURL":"https://twitter.com/robertarail",
+        "affiliations": [
+          {"name": "Meta AI", "url":"https://ai.facebook.com/"}
+        ]
+      },
+      {
+        "author":"Minqi Jiang",
+        "authorURL":"https://twitter.com/minqijiang",
+        "affiliations": [
+          {"name": "UCL", "url": "https://dark.cs.ucl.ac.uk/"},
+          {"name": "Meta AI", "url":"https://ai.facebook.com/"}
+        ]
+      },
+      {
+        "author":"Tim Rocktäschel",
+        "authorURL":"https://twitter.com/_rockt",
+        "affiliations": [
+          {"name": "UCL", "url": "https://dark.cs.ucl.ac.uk/"}
+        ]
+      }
+    ],
+    "katex": {
+      "delimiters": [
+        {"left": "$$", "right": "$$", "display": false}
+      ]
+    }
+  }</script>
+  </d-front-matter>
+  <div id='cover'>
+    <!-- @TODO: Add cover video (Habitat?) -->
+<!--     <video id="cover-video" autoplay muted loop playsinline>
+      <source src="dist/video/cover.mp4" type="video/mp4">
+    </video> -->
+    <div id="cover-video-tint"></div>
+    <d-title id="title">
+  <!--     <figure style="grid-column: page; margin: 1rem 0;"><img src="momentum.png"
+          style="width:100%; border: 1px solid rgba(0, 0, 0, 0.2);" /></figure> -->
+      <p></p>
+    </d-title>
+  </div>
+  <d-byline></d-byline>
+
+  <d-article>
+    <!-- <a class="marker" href="#section-1" id="section-1"><span>1</span></a> -->
+    <h2>Overview</h2>
+    <p>
+    We use elliptical bonuses<d-cite bibtex-key="PCPG"></d-cite> to extend count-based bonuses to continuous state space and procedurally-generated environments.
+    </p>
+
+    <span id="eq:elliptical_bonus"></span>
+    <d-math block>
+    \begin{aligned}
+    b(s_t) = \phi(s_t)^{\top}C^{-1}_{t-1}\phi(s_t), C_t = \sum_{i=1}^{t-1}\phi(s_i)\phi(s_i)^{\top} + \lambda I.
+    \tag{1}
+    \end{aligned}
+    </d-math>
+
+    <!-- Insert video of ACCEL on bipedal walker -->
+
+    <div class="centered-content-container">
+      <figure>
+        <img id="e3b-overview" src="dist/img/e3b-overview.svg"/>
+        <figcaption>Figure 1. Example caption for centered content</figcaption>
+      </figure>
+    </div>
+
+
+    <p>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Col 1</th>
+          <th scope="col">Col 2</th>
+          <th scope="col">Col 3</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Exploration</td>
+          <td>Elliptical</td>
+          <td>Episodic</td>
+        </tr>
+        <tr>
+          <td>E</td>
+          <td>3</td>
+          <td>B</td>
+        </tr>
+      </tbody>
+    </table>
+    <figcaption>Table 2: Caption for table.</figcaption>
+    </p>
+
+  </d-article>
+
+  <d-appendix>
+
+<!--       <h3>Acknowledgements</h3>
+
+      <p>
+      Add any acknowledgements here.
+      </p> -->
+
+      <h3>Citation</h3>
+      <p>
+      For attribution in academic contexts, please cite this work as
+      </p>
+
+      <pre class="citation short">Henaff et al., "Exploration via Elliptical Episodic Bonuses", 2022.</pre>
+
+      <p>BibTeX citation</p>
+      <pre class="citation long">
+@article{henaff2022exploration,
+  title={Exploration via Elliptical Episodic Bonuses},
+  author={Henaff, Mikael and Raileanu, Roberta and Jiang, Minqi and Rockt{\"a}schel, Tim},
+  journal={arXiv preprint arXiv:????.?????},
+  year={2022}
+}</pre>
+
+    <d-bibliography src="dist/bibliography.bib"></d-bibliography>
+  </d-appendix>
+
+  <!-- <distill-footer></distill-footer> -->
+
+</body>
