@@ -158,7 +158,7 @@ The approaches above are, however, designed for <em>singleton</em> RL tasks, whe
 
     <div class="centered-content-container">
       <figure>
-        <figcaption style="text-align: center;">Figure 1. Examples of Contextual MDPs, where each episode corresponds to a different environment.</figcaption>
+        <figcaption style="text-align: center;">Figure 1: Examples of Contextual MDPs, where each episode corresponds to a different environment.</figcaption>
 	<video width="1200" autoplay muted loop playsinline>
     <source src="cmdp_examples.mov" type="video/mp4">
 	</video>
@@ -195,26 +195,26 @@ To address this fundamental limitation, we propose a new method, E3B, which uses
     <div class="centered-content-container">
       <figure>
         <img id="e3b-overview" src="ride_agac_noveld_table.png"/>
-        <figcaption>Figure 1. Example caption for centered content</figcaption>
+        <figcaption>Table 1. Summary of existing methods for exploring contextual MDPs.</figcaption>
       </figure>
     </div>
 
     <p>
-      Figure 1 shows results for the three methods with and without their respective count-based episodic terms, on one of the MiniGrid environments used in prior work. When the count-based terms are removed, all three methods fail to learn. Similar trends apply for other MiniGrid environments (see our paper). This shows that the episodic bonus is in fact essential for good performance.
+      Figure 2 shows results for the three methods with and without their respective count-based episodic terms, on one of the MiniGrid environments used in prior work. When the count-based terms are removed, all three methods fail to learn. Similar trends apply for other MiniGrid environments (see our paper). This shows that the episodic bonus is in fact essential for good performance.
       </p>
 
 
     <div class="centered-content-container">
       <figure>
         <img id="e3b-overview" src="counts_ablation-crop-1.png"/>
-        <figcaption>Figure 1. Example caption for centered content</figcaption>
+        <figcaption>Figure 2: Performance of RIDE, AGAC and NovelD with and without the count-based bonus.</figcaption>
       </figure>
     </div>
 
     
     
     <p>
-However, the count-based episodic bonus suffers from a fundamental limitation, which is similar to that faced by count-based approaches in general: if each state is unique, then $$N_e(s_t)$$ will always be 1 and the episodic bonus is no longer meaningful. This is the case for many real-world applications. For example, a household robot’s state as recorded by its camera might include moving trees outside the window, clocks showing the time or images on a television screen which are not relevant for its tasks, but nevertheless make each state unique. Previous works [56, 25, 76] have used the MiniGrid test suite [15] for evaluation, where observations are less noisy and do not typically contain irrelevant information. Thus, methods relying on episodic counts have been effective in these scenarios. However, in more complex environments such as MiniHack [58] or with high-dimensional pixel-based observations, episodic count-based approaches can cease to be viable.
+However, the count-based episodic bonus suffers from a fundamental limitation, which is similar to that faced by count-based approaches in general: if each state is unique, then $$N_e(s_t)$$ will always be 1 and the episodic bonus is no longer meaningful. This is the case for many real-world applications. For example, a household robot’s state as recorded by its camera might include moving trees outside the window, clocks showing the time or images on a television screen which are not relevant for its tasks, but nevertheless make each state unique. Previous works <d-cite bibtex-key="RIDE, AGAC, NovelD"></d-cite> have used the MiniGrid test suite <d-cite bibtex-key="minigrid"></d-cite> for evaluation, where observations are less noisy and do not typically contain irrelevant information. Thus, methods relying on episodic counts have been effective in these scenarios. However, in more complex environments such as MiniHack <d-cite bibtex-key="minihack"></d-cite> or with high-dimensional pixel-based observations, episodic count-based approaches can cease to be viable.
 
       </p>
 
@@ -223,7 +223,7 @@ However, the count-based episodic bonus suffers from a fundamental limitation, w
     <h2>Elliptical Episodic Bonuses</h2>
 
     <p>
-In this section we describe Exploration via Elliptical Episodic Bonuses, (E3B), our algorithm for exploration in contextual MDPs. It is designed to address the shortcomings of count-based episodic bonuses described above, with two aims in mind. First, we would like an episodic bonus that can be used with continuous state representations, unlike the count-based bonus which requires discrete states. Second, we would like a representation learning method that only captures information about the environment that is relevant for the task at hand. The first requirement is met by using an elliptical bonus, an idea which has been previously used in the contextual bandit literature and which provides a continuous analog to the count-based bonus. The second requirement is met by using a representation learned with an inverse dynamics model [52, 56].      
+In this section we describe Exploration via Elliptical Episodic Bonuses, (E3B), our algorithm for exploration in contextual MDPs. It is designed to address the shortcomings of count-based episodic bonuses described above, with two aims in mind. First, we would like an episodic bonus that can be used with continuous state representations, unlike the count-based bonus which requires discrete states. Second, we would like a representation learning method that only captures information about the environment that is relevant for the task at hand. The first requirement is met by using an elliptical bonus, an idea which has been previously used in the contextual bandit literature and which provides a continuous analog to the count-based bonus. The second requirement is met by using a representation learned with an inverse dynamics model <d-cite bibtex-key="ICM"></d-cite>.      
       </p>
 
     <p>
@@ -239,12 +239,15 @@ A summary of the method is shown in Figure 3. We define an intrinsic reward base
 
     <!-- Insert video of ACCEL on bipedal walker -->
 
-    <div class="centered-content-container">
+<p style="text-align:center;"><img width="900" src="dist/img/e3b-overview.png" alt="Logo"></p> 
+    
+<!--    <div class="centered-content-container">
       <figure>
-        <img id="e3b-overview" src="dist/img/e3b-overview.svg"/>
-        <figcaption>Figure 1. Example caption for centered content</figcaption>
+        <img id="e3b-overview" src="dist/img/e3b-overview.png"/>
+        <figcaption>Figure 3: Overview of E3B, our algorithm for exploring contextual MDPs.</figcaption>
       </figure>
     </div>
+-->
 
 
     <h3>Elliptical Episodic Bonuses</h3>
@@ -389,12 +392,12 @@ The MiniHack tasks contain numerous challenges such as finding and using magical
 
 
     <p>
-      Results are shown in Figure 3. We report aggregate results across all 22 MiniHack tasks we consider, as well as results broken down by task category: what we call "navigation-based tasks", which involve things like navigating through a series of rooms (with additional challenges such as avoiding lava, opening locked doors or fighting monsters), and "skill-based tasks", which involve using objects (for example, picking up a magic wand, pointing it at a dangerous monster, zapping it, and then exiting the room). 
+      Results are shown in Figure 4. We report aggregate results across all 22 MiniHack tasks we consider, as well as results broken down by task category: what we call "navigation-based tasks", which involve things like navigating through a series of rooms (with additional challenges such as avoiding lava, opening locked doors or fighting monsters), and "skill-based tasks", which involve using objects (for example, picking up a magic wand, pointing it at a dangerous monster, zapping it, and then exiting the room). 
 
     <div class="centered-content-container">
       <figure>
         <img id="e3b-overview" src="minihack_table.png"/>
-        <figcaption>Aggregate results across 22 MiniHack tasks. Bars indicate 95% confidence intervals computed using stratified bootstrapping.</figcaption>
+        <figcaption>Figure 4: Aggregate results across 22 MiniHack tasks. Bars indicate 95% confidence intervals computed using stratified bootstrapping.</figcaption>
       </figure>
     </div>
 
@@ -423,7 +426,7 @@ In contrast, E3B is able to solve both the tasks, without the need for task-spec
 
     <div class="centered-content-container">
       <figure>
-        <figcaption style="text-align: center;">Figure 1. Examples of Contextual MDPs, where each episode corresponds to a different environment.</figcaption>
+        <figcaption style="text-align: center;">Figure 5. Behavior of E3B, NovelD-position and NovelD-message on a navigation-based task (top) and a skill-based task (bottom).</figcaption>
 	<video width="1500" autoplay muted loop playsinline>
     <source src="agent_behavior.mov" type="video/mp4">
 	</video>	
@@ -454,13 +457,13 @@ In contrast, E3B is able to solve both the tasks, without the need for task-spec
     
     
     <p>
-As our second evaluation testbed, we used the sparse reward, pixel-based VizDoom <d-cite bibtex-key="vizdoom"></d-cite> environments used in prior work <d-cite bibtex-key="ICM, RIDE"></d-cite>. Although these are singleton MDPs, they still constitute challenging exploration problems and probe whether our method scales to continuous high-dimensional pixel-based observations. Results comparing E3B to RIDE, ICM and IMPALA on three versions of the task are shown in Figure 7. IMPALA succeeds on the dense reward task but fails on the two sparse reward ones. E3B is able to solve both versions of the sparse reward task, similar to RIDE and ICM.      
+As our second evaluation testbed, we used the sparse reward, pixel-based VizDoom <d-cite bibtex-key="vizdoom"></d-cite> environments used in prior work <d-cite bibtex-key="ICM, RIDE"></d-cite>. Although these are singleton MDPs, they still constitute challenging exploration problems and probe whether our method scales to continuous high-dimensional pixel-based observations. Results comparing E3B to RIDE, ICM and IMPALA on three versions of the task are shown in Figure 6. IMPALA succeeds on the dense reward task but fails on the two sparse reward ones. E3B is able to solve both versions of the sparse reward task, similar to RIDE and ICM.      
     </p>
 
     <div class="centered-content-container">
       <figure>
         <img id="e3b-overview" src="results_vizdoom.png"/>
-        <figcaption>Results on pixel-based VizDoom. Shaded region indicates one standard deviation over 5 seeds.</figcaption>
+        <figcaption>Figure 6: Results on pixel-based VizDoom. Shaded region indicates one standard deviation over 5 seeds.</figcaption>
       </figure>
     </div>
     
@@ -504,19 +507,19 @@ Here we train RND, ICM, NovelD and E3B agents using the intrinsic reward alone, 
     <div class="centered-content-container">
       <figure>
 	 <font size="+2">E3B</font>
-	<video width="700" autoplay muted loop playsinline>
+	<video width="800" autoplay muted loop playsinline>
     <source src="videos_for_site/set1/e3b.mp4" type="video/mp4">
 	</video>
 	 <font size="+2">NovelD</font>
-	<video width="700" autoplay muted loop playsinline>
+	<video width="800" autoplay muted loop playsinline>
     <source src="videos_for_site/set1/noveld.mp4" type="video/mp4">
 	</video>
 	 <font size="+2">RND</font>
-	<video width="700" autoplay muted loop playsinline>
+	<video width="800" autoplay muted loop playsinline>
     <source src="videos_for_site/set1/rnd.mp4" type="video/mp4">
 	</video>
 	 <font size="+2">ICM</font>
-	<video width="700" autoplay muted loop playsinline>
+	<video width="800" autoplay muted loop playsinline>
     <source src="videos_for_site/set1/icm.mp4" type="video/mp4">
 	</video>
 	
@@ -584,7 +587,7 @@ In this work, we identified a fundamental limitation of existing methods for exp
 @article{henaff2022exploration,
   title={Exploration via Elliptical Episodic Bonuses},
   author={Henaff, Mikael and Raileanu, Roberta and Jiang, Minqi and Rockt{\"a}schel, Tim},
-  journal={arXiv preprint arXiv:????.?????},
+  journal={NeurIPS},
   year={2022}
 }</pre>
 
