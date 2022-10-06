@@ -1,0 +1,596 @@
+<!--
+  Copyright 2018 The Distill Template Authors
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!doctype html>
+
+<head>
+  <title>E3B</title>
+  <meta name="description" content="Web publication for &quot;Exploration via Elliptical Episodic Bonuses&quot;."/>
+  <!-- TODO: Need to add urls to images for metadata -->
+  <meta property="og:url" content="https://e3b.github.io"/>
+  <meta property="og:title" content="E3B"/>
+  <meta property="og:description" content="Web publication for &quot;Exploration via Elliptical Episodic Bonuses&quot;" />
+  <meta property="og:image" content="og-image.png"/>
+  <meta property="og:image:url"  content="og-image.png"/>
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:title" content="E3B"/>
+  <meta name="twitter:description" content="Web publication for &quot;Exploration via Elliptical Episodic Bonuses&quot;."/>
+  <meta name="twitter:image" content=""/>
+  <meta name="twitter:image:secure_url" content=""/> 
+
+  <script>
+    console.log = function() {};
+    console.groupCollapsed = function() {};
+    console.debug = function() {};
+  </script>
+  <script src="dist/template.v2.js"></script>
+
+<!--   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+        crossorigin="anonymous"> -->
+  <link rel="stylesheet" href="dist/bootstrap.forms.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+          crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/p5@1.2.0/lib/p5.js"></script>
+  <script src=https://cdnjs.cloudflare.com/ajax/libs/seedrandom/2.3.10/seedrandom.min.js></script>
+
+  <link rel="stylesheet" href="dist/demo.css">
+
+  <!--SCRIPTS DEPENDENCIES-->
+
+  <!--  @TODO: Add GA  <script async src="https://www.googletagmanager.com/gtag/js"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    </script> -->
+</script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf8">
+
+</head>
+
+<body>
+  <d-front-matter>
+    <script id='distill-front-matter' type="text/json">{
+    "title": "Exploration via Elliptical Episodic Bonuses",
+    "description": "Going beyond count-based exploration for procedurally-generated worlds.",
+    "published": "September 14, 2022",
+    "authors": [
+      {
+        "author":"Mikael Henaff",
+        "authorURL":"http://www.mikaelhenaff.com/",
+        "affiliations": [
+          {"name": "Meta AI", "url":"https://ai.facebook.com/"}]
+      },
+      {
+        "author":"Roberta Raileanu",
+        "authorURL":"https://twitter.com/robertarail",
+        "affiliations": [
+          {"name": "Meta AI", "url":"https://ai.facebook.com/"}
+        ]
+      },
+      {
+        "author":"Minqi Jiang",
+        "authorURL":"https://twitter.com/minqijiang",
+        "affiliations": [
+          {"name": "UCL", "url": "https://dark.cs.ucl.ac.uk/"},
+          {"name": "Meta AI", "url":"https://ai.facebook.com/"}
+        ]
+      },
+      {
+        "author":"Tim Rocktäschel",
+        "authorURL":"https://twitter.com/_rockt",
+        "affiliations": [
+          {"name": "UCL", "url": "https://dark.cs.ucl.ac.uk/"}
+        ]
+      }
+    ],
+    "katex": {
+      "delimiters": [
+        {"left": "$$", "right": "$$", "display": false}
+      ]
+    }
+  }</script>
+  </d-front-matter>
+  <div id='cover'>
+    <!-- @TODO: Add cover video (Habitat?) -->
+<!--     <video id="cover-video" autoplay muted loop playsinline>
+      <source src="dist/video/cover.mp4" type="video/mp4">
+    </video> -->
+    <div id="cover-video-tint"></div>
+    <d-title id="title">
+  <!--     <figure style="grid-column: page; margin: 1rem 0;"><img src="momentum.png"
+          style="width:100%; border: 1px solid rgba(0, 0, 0, 0.2);" /></figure> -->
+      <p></p>
+    </d-title>
+  </div>
+  <d-byline></d-byline>
+
+  <d-article>
+    <!-- <a class="marker" href="#section-1" id="section-1"><span>1</span></a> -->
+    <h2>Overview</h2>
+<!--    We consider exploration in contextual MDPs where the environment changes at each episode (such as in procedurally-generated games or embodied AI settings such as Habitat).
+    We first highlight that previous methods critically rely on an episodic count-based bonus, which does not scale to complex settings where each observation is unique.
+    To address this, we propose E3B, a new algorithm which generalizes episodic count-based bonuses using an elliptical bonus paired with an inverse dynamics model.
+    E3B sets a new state of the art across 22 challenging environments from the MiniHack suite, without using task-specific prior knowledge. It also matches existing methods on -->
+
+    <p>
+In recent years, a number of reinforcement learning (RL) methods have been proposed to explore complex environments which differ across episodes, such as procedurally-generated video games or embodied AI tasks. In this work, we show that the effectiveness of these methods critically relies on a count-based episodic term in their exploration bonus. As a result, despite their success in relatively simple, noise-free settings, these methods fall short in more realistic scenarios where the state space is vast and prone to noise. To address this limitation, we introduce Exploration via Elliptical Episodic Bonuses (E3B), a new method which extends count-based episodic bonuses to continuous state spaces and encourages an agent to explore states that are diverse under a learned embedding within each episode. The embedding is learned using an inverse dynamics model in order to capture controllable aspects of the environment. Our method sets a new state-of-the-art across 22 challenging tasks from the MiniHack suite, without requiring task-specific inductive biases. E3B also matches existing methods on sparse reward, pixel-based Vizdoom environments, and outperforms existing methods in reward-free exploration on Habitat, demonstrating that it can scale to high-dimensional pixel-based observations and realistic environments.    
+
+<!--    We use episodic elliptical bonuses<d-cite bibtex-key="PCPG"></d-cite> to extend count-based bonuses to continuous state space and procedurally-generated environments. -->
+    </p>
+
+
+    <h2>Introduction</h2>
+<!--    We consider exploration in contextual MDPs where the environment changes at each episode (such as in procedurally-generated games or embodied AI settings such as Habitat).
+    We first highlight that previous methods critically rely on an episodic count-based bonus, which does not scale to complex settings where each observation is unique.
+    To address this, we propose E3B, a new algorithm which generalizes episodic count-based bonuses using an elliptical bonus paired with an inverse dynamics model.
+    E3B sets a new state of the art across 22 challenging environments from the MiniHack suite, without using task-specific prior knowledge. It also matches existing methods on -->
+
+    <p>
+Exploration in environments with sparse rewards is a fundamental challenge in reinforcement learning (RL). Exploration has been studied extensively both in theory and in the context of deep RL, and a number of empirically successful methods have been proposed, such as pseudocounts <d-cite bibtex-key="PseudoCounts"></d-cite>, intrinsic curiosity modules (ICM)<d-cite bibtex-key="ICM"></d-cite>, and random network distillation (RND) <d-cite bibtex-key="RND"></d-cite>. These methods rely on intrinsically generated exploration bonuses that reward the agent for visiting states that are novel according to some measure, and have proven effective on hard exploration problems, as exemplified by the Atari games Montezuma’s Revenge and PitFall <d-cite bibtex-key="RND"></d-cite>.      
+    </p>
+
+    <p>
+The approaches above are, however, designed for <em>singleton</em> RL tasks, where the agent is spawned in the <em>same</em> environment in every episode. Recently, several studies have found that RL agents exhibit poor generalization across environments, and that even minor changes to the environment can lead to substantial degradation in performance <d-cite bibtex-key="overfitting_dl, illuminating_gen, dissection, pmlr-v97-cobbe19a, DBLP:journals/corr/abs-2111-09794"></d-cite>. This has motivated the creation of benchmarks in the Contextual Markov Decision Process (CMDP) framework, where different episodes correspond to different environments that nevertheless share certain characteristics. Examples of CMDPs include procedurally generated (PCG) environments <d-cite bibtex-key="gym_minigrid, minihack, NLE, obstacle_tower, procgen, deepmindlab, crafter, megaverse"></d-cite> or embodied AI tasks where the agent must generalize its behavior to unseen physical spaces at test time <d-cite bibtex-key="habitat19iccv, igibson, 3dworld, sapien"></d-cite>. 
+    </p>
+    
+
+
+    <div class="centered-content-container">
+      <figure>
+        <figcaption style="text-align: center;">Figure 1. Examples of Contextual MDPs, where each episode corresponds to a different environment.</figcaption>
+	<video width="1200" autoplay muted loop playsinline>
+    <source src="cmdp_examples.mov" type="video/mp4">
+	</video>
+      </figure>
+    </div>
+
+<p>
+Recently, several methods have been proposed which have shown promising performance in PCG environments with sparse rewards, such as RIDE <d-cite bibtex-key="RIDE"></d-cite>, AGAC <d-cite bibtex-key="AGAC"></d-cite> and NovelD <d-cite bibtex-key="NovelD"></d-cite>. These methods propose different intrinsic reward functions, such as the change in representation in a latent space, the divergence between the predictions of a policy and an adversary, or the difference between random network prediction errors at two consecutive states. Although not presented as a central algorithmic feature, these methods also include a count-based bonus which is computed at the episode level.    
+</p>
+
+
+
+    <p>
+In this work, we take a closer look at exploration in CMDPs, where each episode corresponds to a different environment context. We first show that, surprisingly, the count-based episodic bonus that is often included as a heuristic is in fact essential for good performance, and current methods fail if it is omitted. Furthermore, due to this dependence on a count-based term, existing methods fail on more complex tasks with irrelevant features or dynamic entities, where each observation is rarely seen more than once. We find that performance can be improved by counting certain features extracted from the observations, rather than the observations themselves. However, different features are useful for different tasks, making it difficult to design a feature extractor that performs well across all tasks.      
+      </p>
+
+
+    <p>
+To address this fundamental limitation, we propose a new method, E3B, which uses an elliptical bonus <d-cite bibtex-key="Auer2002, Dani2008, LinUCB"></d-cite> at the episode level that can be seen as a natural generalization of a count-based episodic bonus to continuous state spaces, and that is paired with a self-supervised feature learning method using an inverse dynamics model. Our algorithm is simple to implement, scalable to large or infinite state spaces, and achieves state-of-the-art performance across 22 challenging tasks from the MiniHack suite <d-cite bibtex-key="minihack"></d-cite>, without the need for task-specific prior knowledge. It also matches existing methods on hard exploration tasks from the VizDoom environment <d-cite bibtex-key="vizdoom"></d-cite>, and significantly outperforms existing methods in reward-free exploration on the Habitat embodied AI environment <d-cite bibtex-key="habitat19iccv, szot2021habitat"></d-cite>, demonstrating that it scales to rich, high dimensional pixel-based observations and real-world scenarios.       
+      </p>
+
+
+
+    <h2>Importance and Limitations of Count-Based Episodic Bonuses</h2>
+
+    <p>
+      Table 1 shows the exploration bonuses used for RIDE, AGAC and NovelD - three recently proposed methods for exploration which have been applied to the MiniGrid CMDP environment.
+      Note that all three include a term (marked in blue) which depends on <em>episodic</em> counts. Unlike count-based bonuses which are used in classical tabular RL algorithms, this count-based bonus
+      resets after each episode. Although not presented as a central algorithmic feature, we will show below that these episodic counts are in fact essential for good performance. 
+      </p>
+
+    
+
+    <div class="centered-content-container">
+      <figure>
+        <img id="e3b-overview" src="ride_agac_noveld_table.png"/>
+        <figcaption>Figure 1. Example caption for centered content</figcaption>
+      </figure>
+    </div>
+
+    <p>
+      Figure 1 shows results for the three methods with and without their respective count-based episodic terms, on one of the MiniGrid environments used in prior work. When the count-based terms are removed, all three methods fail to learn. Similar trends apply for other MiniGrid environments (see our paper). This shows that the episodic bonus is in fact essential for good performance.
+      </p>
+
+
+    <div class="centered-content-container">
+      <figure>
+        <img id="e3b-overview" src="counts_ablation-crop-1.png"/>
+        <figcaption>Figure 1. Example caption for centered content</figcaption>
+      </figure>
+    </div>
+
+    
+    
+    <p>
+However, the count-based episodic bonus suffers from a fundamental limitation, which is similar to that faced by count-based approaches in general: if each state is unique, then $$N_e(s_t)$$ will always be 1 and the episodic bonus is no longer meaningful. This is the case for many real-world applications. For example, a household robot’s state as recorded by its camera might include moving trees outside the window, clocks showing the time or images on a television screen which are not relevant for its tasks, but nevertheless make each state unique. Previous works [56, 25, 76] have used the MiniGrid test suite [15] for evaluation, where observations are less noisy and do not typically contain irrelevant information. Thus, methods relying on episodic counts have been effective in these scenarios. However, in more complex environments such as MiniHack [58] or with high-dimensional pixel-based observations, episodic count-based approaches can cease to be viable.
+
+      </p>
+
+
+
+    <h2>Elliptical Episodic Bonuses</h2>
+
+    <p>
+In this section we describe Exploration via Elliptical Episodic Bonuses, (E3B), our algorithm for exploration in contextual MDPs. It is designed to address the shortcomings of count-based episodic bonuses described above, with two aims in mind. First, we would like an episodic bonus that can be used with continuous state representations, unlike the count-based bonus which requires discrete states. Second, we would like a representation learning method that only captures information about the environment that is relevant for the task at hand. The first requirement is met by using an elliptical bonus, an idea which has been previously used in the contextual bandit literature and which provides a continuous analog to the count-based bonus. The second requirement is met by using a representation learned with an inverse dynamics model [52, 56].      
+      </p>
+
+    <p>
+A summary of the method is shown in Figure 3. We define an intrinsic reward based on the position of the current state’s embedding with respect to an ellipse fit on the embeddings of previous states encountered within the same episode. This bonus is then combined with the environment reward and used to update the agent’s policy.      
+    </p>
+
+
+
+
+    
+    
+
+
+    <!-- Insert video of ACCEL on bipedal walker -->
+
+    <div class="centered-content-container">
+      <figure>
+        <img id="e3b-overview" src="dist/img/e3b-overview.svg"/>
+        <figcaption>Figure 1. Example caption for centered content</figcaption>
+      </figure>
+    </div>
+
+
+    <h3>Elliptical Episodic Bonuses</h3>
+
+    <p>
+      Given a feature encoding $$\phi$$, at each time step $$t$$ in the episode the elliptical bonus $$b$$ is defined as follows:
+
+
+    <span id="eq:elliptical_bonus"></span>
+    <d-math block>
+    \begin{aligned}
+    b(s_t) = \phi(s_t)^{\top}C^{-1}_{t-1}\phi(s_t), C_t = \sum_{i=1}^{t-1}\phi(s_i)\phi(s_i)^{\top} + \lambda I.
+    \tag{1}
+    \end{aligned}
+    </d-math>
+
+Here $$\lambda I$$ is a regularization term to ensure that the matrix $$C_{t-1}$$ is non-singular, where $$\lambda$$ is a scalar coefficient and $$I$$ is the identity matrix. The reward optimized by the algorithm is then defined as $$\bar{r}(s_t, a_t) = r(s_t, a_t) + \beta \cdot b(s_t)$$, where $$r(s_t, a_t)$$ is the extrinsic reward provided by the environment and $$\beta$$ is a scalar term balancing the tradeoff between exploration and exploitation.     
+      </p>
+
+
+    <p>
+
+      One perspective which can provide intuition is that the elliptical bonus is a natural generalization of a count-based episodic bonus. To see this, observe that if the problem is tabular and $$\phi$$ is a one-hot encoding of the state, then $$C_{t-1}$$ will be a diagonal matrix whose entries contain the counts corresponding to each state encountered in the episode, and its inverse $$C_{t-1}^{-1}$$ will also be a diagonal matrix whose entries are inverse state visitation counts:
+
+    <span id="eq:elliptical_bonus"></span>
+    <d-math block>
+      \begin{equation*}
+
+\phi(s_i) = \begin{bmatrix} 0 \\ 1 \\ 0 \\ \vdots \\ 0\end{bmatrix} \phantom{33}
+      
+  C_{t-1} =
+  \begin{bmatrix}
+    N_e(s_1) & & \\
+\\
+    & \ddots & \\
+    & & N_e(s_n)
+      \end{bmatrix}
+
+   \phantom{333}
+
+  C_{t-1}^{-1} =
+  \begin{bmatrix}
+    \frac{1}{N_e(s_1)} & & \\
+\\
+    & \ddots & \\
+    & & \frac{1}{N_e(s_n)}
+  \end{bmatrix}      
+
+      
+    \end{equation*}
+    </d-math>
+      
+      
+
+    The bilinear form in the bonus then reads off the entry corresponding to the current state $$s_t$$, yielding a bonus of $$1/N_e(s_t)$$:
+
+    <span id="eq:elliptical_bonus"></span>
+    <d-math block>
+      \begin{equation*}
+b(s_t) = \phi(s_t)^\top C_{t-1}^{-1}\phi(s_t) = \frac{1}{N_e(s_t)}      
+    \end{equation*}
+    </d-math>
+    
+
+
+      
+<!--      One perspective which can provide intuition is that the elliptical bonus is a natural generalization of a count-based episodic bonus. To see this, observe that if the problem is tabular and $$\phi$$ is a one-hot encoding of the state, then $$C_{t-1}$$ will be a diagonal matrix whose entries contain the counts corresponding to each state encountered in the episode. Its inverse $$C_{t-1}^{-1}$$ will also be a diagonal matrix whose entries are inverse state visitation counts, and the bilinear form $$\phi(s_t)^\top C_{t-1}^{-1} \phi(s_t)$$ reads off the entry corresponding to the current state $$s_t$$, yielding a bonus of $$1/N_e(s_t)$$. -->
+
+<!-- <p style="text-align:center;"><img width="1200" src="e3b_tabular.png"></p>    -->
+
+      
+      </p>
+
+
+    
+    
+<!--    <div class="centered-content-container">
+      <figure>
+        <img width="1200" id="e3b-overview" src="e3b_tabular.png"/>
+        <figcaption>Figure 1. Example caption for centered content</figcaption>
+      </figure>
+    </div>
+-->
+
+    
+
+    <p>
+      For a more general geometric interpretation, if $$\phi(s_0),...,\phi(s_{t-1})$$ are roughly centered at zero, then $$C_{t-1}$$ can be viewed as their unnormalized covariance matrix. Now consider the eigendecomposition $$C_{t-1} = U^\top \Lambda U$$, where $$\Lambda$$ is the diagonal matrix whose entries are the eigenvalues $$\lambda_1, ..., \lambda_n$$ (these are real since $$C_{t-1}$$ is symmetric). Letting $$z = U\phi(s_t) = (z_1, ..., z_n)$$ be the set of coordinates of $$\phi(s_t)$$ in the eigenspace of $$C_{t-1}$$, we can rewrite the elliptical bonus as:
+
+    <span id="eq:elliptical_bonus"></span>
+    <d-math block>
+\begin{align*}
+    b(s_t) = z^\top \Lambda^{-1} z = \sum_{i=1}^n \frac{z_i^2}{\lambda_i}
+\end{align*}      
+    </d-math>
+
+The bonus increases the more $$\phi(s_t)$$ is aligned with the eigenvectors corresponding to smaller eigenvalues of $$C_{t-1}$$ (directions of low data density), and decreases the more it is aligned with eigenvectors corresponding to larger eigenvalues (directions of high data density). This is illustrated below for $$n=2$$ dimensions:
+    </p>
+
+<p style="text-align:center;"><img width="500" src="ellipse_2d.png" alt="Logo"></p>    
+
+
+    <p>
+      In practice, inverting the $$C_t$$ matrix at every step would be expensive, but we can use fast rank-$$1$$ updates to circumvent this - see our paper for details. 
+      </p>
+
+    <h3>Learned Feature Encoder</h3>
+
+    <p>
+    Any feature learning method could in principle be used to learn $$\phi$$. Here we use the inverse dynamics model approach proposed in <d-cite bibtex-key="ICM"></d-cite>, which trains a model $$g$$ along with $$\phi$$ to map each pair of consecutive embeddings $$\phi(s_t), \phi(s_{t+1})$$ to a distribution over actions $$a_t$$ linking them. In our setup, $$\phi$$ is separate from the policy network. The $$g$$ model is trained jointly with $$\phi$$ using the following per-sample loss:
+
+    <span id="eq:idm"></span>
+    <d-math block>
+\begin{equation*}
+    \ell(s_t, a_t, s_{t+1}; \phi, g) = -\log p(a_t | g(\phi(s_t), \phi(s_{t+1})))
+\end{equation*}      
+    </d-math>
+
+The motivation is that the mapping $$\phi$$ will discard information about the environment which is not useful for predicting the agent's actions. Previous work \cite{ICM} has shown that this can make learning more robust to random noise or other parts of the state which are not controllable by the agent. In our experiments, we compare this to other approaches such as using the policy network <d-cite bibtex-key="ACB"></d-cite> or random networks <d-cite bibtex-key="pathak18largescale, PCPG"></d-cite> to produce state embeddings.     
+      </p>
+    
+
+    <h2>Experiments</h2>
+
+
+    <h3>MiniHack</h3>
+
+    <p>
+In order to probe the capabilities of existing methods and evaluate E3B, we seek CMDP environments which exhibit challenges associated with realistic scenarios, such as sparse rewards, noisy or irrelevant features, and large state spaces. For our first experimental testbed, we opted for the procedurally generated tasks from the MiniHack suite <d-cite bibtex-key="minihack"></d-cite>, which is itself based on the NetHack Learning Environment <d-cite bibtex-key="NLE"></d-cite>.
+NetHack is a notoriously challenging roguelike video game where the agent must navigate through procedurally generated dungeons to recover a magical amulet. 
+The MiniHack tasks contain numerous challenges such as finding and using magical objects, navigating through levels while avoiding lava, and fighting monsters. Furthermore, rewards are sparse and as detailed below, the state representation contains a large amount of information, only some of which is relevant for a given task. This is illustrated below:
+
+<p style="text-align:center;"><img width="400" src="minihack_obs.png" alt="Logo"></p>    
+
+
+      </p>
+
+
+    <p>
+      Note the presence of the time counter in the state - this will make each state in the episode unique, and hence will make the episodic count-based bonuses in RIDE, NovelD and AGAC meaningless. In addition to standard baselines (IMPALA, RND, ICM, RIDE, NovelD), we added three variants of NovelD which use hand-engineered features for the count-based bonus instead. NovelD-position extracts the $$(x, y)$$ position from the state and counts, NovelD-message extracts the message, and NovelD-image extracts the symbolic image. We expect these to be stronger baselelines than standard NovelD, since they remove the time counter. However, choosing which features to extract in general relies heavily on domain knowledge. 
+      </p>
+
+
+    <p>
+      Results are shown in Figure 3. We report aggregate results across all 22 MiniHack tasks we consider, as well as results broken down by task category: what we call "navigation-based tasks", which involve things like navigating through a series of rooms (with additional challenges such as avoiding lava, opening locked doors or fighting monsters), and "skill-based tasks", which involve using objects (for example, picking up a magic wand, pointing it at a dangerous monster, zapping it, and then exiting the room). 
+
+    <div class="centered-content-container">
+      <figure>
+        <img id="e3b-overview" src="minihack_table.png"/>
+        <figcaption>Aggregate results across 22 MiniHack tasks. Bars indicate 95% confidence intervals computed using stratified bootstrapping.</figcaption>
+      </figure>
+    </div>
+
+    The standard baselines perform poorly here. For RND and ICM, this is likely due to the fact that they are designed for singleton MDPs (which are the same across episodes), and their global novelty bonus is not sufficient for contextual MDPs where the environment changes each episode. In light of our previous experiments showing that NovelD fails if the episodic bonus is removed, it is also unsurprising that standard NovelD fails here: the time counter in MiniHack makes each state in the episode unique, which has the same effect as setting the episodic bonus to a constant 1. 
+      </p>
+
+    <p>The NovelD variants which use hand-coded features for the episodic bonus perform quite a bit better. NovelD-position obtains excellent performance on navigation-based tasks, which makes sense given that constructing a count-based bonus based on $$(x, y)$$ positions will encourage the agent to visit many different $$(x, y)$$ positions over the course of the episode. However, this approach fails completely on skill-based tasks. This is because the skill-based tasks require doing things like picking up and using objects, which do not require visiting diverse spatial locations, and in this case, counting $$(x, y)$$ locations is not an appropriate inductive bias for the algorithm. 
+	</p>
+    
+    
+    <p>
+      We see a different trend for the NovelD-message variant. This version performs reasonably well on skill-based tasks, but much worse than the NovelD-position variant on navigation-based tasks. This highlights that when using the count-based bonus, although certain inductive biases can help for certain tasks, it is difficult to find one which performs well across all of them. 
+      </p>
+
+    <p>On the other hand, E3B performs well across both the navigation-based tasks and the skill-based tasks, without the need for feature engineering or prior knowledge. Out of all the methods considered, it performs the best across all three metrics 
+    </p>
+
+    <p>This is illustrated in Figure 5 below. The top row shows the behavior of the three methods on a navigation-based task where the agent must navigate through procedurally-generated rooms surrounded by lava to reach the goal. E3B and NovelD-position both solve the task (interestingly, NovelD-position adopts a policy which tries to maximize the number of $$(x, y)$$ locations visited in addition to reaching the goal). However, NovelD-message does not reach the goal and the agent dies by falling into the lava. This is because counting messages does not provide an intrinsic reward signal which aligns with the true reward. The second row shows the behavior of the three methods on a skill-based task, where the agent must first pick up and drink a levitation potion which will allow it to float in the air above the lava separating it from the goal. Here NovelD-position moves around but does not pick up the potion - indeed, doing does not provide it with any intrinsic reward since its intrinsic reward is constructed by counting $$(x, y)$$ locations visited. NovelD-message is able to solve the task, since picking up and drinking the potion produces novel messages of the form "f - a swirly potion", "What do you want to drink?" and "You start to float in the air!", which provide the agent with intrinsic reward. 
+    </p>
+
+    <p>
+In contrast, E3B is able to solve both the tasks, without the need for task-specific inductive biases. One explanation for its success is the following: the position information of the agent is useful for predicting movement actions, while messages are useful for predicting actions such as picking up or using objects. Therefore, it is likely that both types of information are encoded in the features extracted by the inverse dynamics model encoder. 
+    </p>
+
+
+
+    <div class="centered-content-container">
+      <figure>
+        <figcaption style="text-align: center;">Figure 1. Examples of Contextual MDPs, where each episode corresponds to a different environment.</figcaption>
+	<video width="1500" autoplay muted loop playsinline>
+    <source src="agent_behavior.mov" type="video/mp4">
+	</video>	
+      </figure>
+    </div>
+
+    
+
+<!--    <div class="centered-content-container">
+      <figure>
+        <figcaption style="text-align: center;">Figure 1. Examples of Contextual MDPs, where each episode corresponds to a different environment.</figcaption>
+	<video width="1500" autoplay muted loop playsinline>
+    <source src="minihack_nav_viz.mov" type="video/mp4">
+	</video>
+	<video width="1500" autoplay muted loop playsinline>
+    <source src="minihack_skill_viz.mov" type="video/mp4">
+	</video>
+	
+      </figure>
+    </div>
+-->
+    
+
+    
+
+    <h3>VizDoom</h3>
+
+    
+    
+    <p>
+As our second evaluation testbed, we used the sparse reward, pixel-based VizDoom <d-cite bibtex-key="vizdoom"></d-cite> environments used in prior work <d-cite bibtex-key="ICM, RIDE"></d-cite>. Although these are singleton MDPs, they still constitute challenging exploration problems and probe whether our method scales to continuous high-dimensional pixel-based observations. Results comparing E3B to RIDE, ICM and IMPALA on three versions of the task are shown in Figure 7. IMPALA succeeds on the dense reward task but fails on the two sparse reward ones. E3B is able to solve both versions of the sparse reward task, similar to RIDE and ICM.      
+    </p>
+
+    <div class="centered-content-container">
+      <figure>
+        <img id="e3b-overview" src="results_vizdoom.png"/>
+        <figcaption>Results on pixel-based VizDoom. Shaded region indicates one standard deviation over 5 seeds.</figcaption>
+      </figure>
+    </div>
+    
+
+
+    <p>
+We emphasize that these are singleton MDPs, where the environment does not change from one episode to the next. Therefore, it is unsurprising that ICM, which was designed for singleton MDPs, succeeds in this task. RIDE is also able to solve the task, consistent with results from prior work <d-cite bibtex-key="RIDE"></d-cite>. The fact that E3B also succeeds provides evidence of its robustness and its applicability to settings with pixel-based observations.      
+      </p>
+
+
+
+
+<h3>Reward-free Exploration on Habitat</h3>
+
+
+    <p>
+As our third experimental setting, we investigate reward-free exploration in Habitat <d-cite bibtex-key="habitat19iccv, szot2021habitat"></d-cite>. Habitat is a platform for embodied AI research which provides
+an interface for agents to navigate and act in photorealistic simulations of real indoor environments. At each episode during training, the agent is initialized in a different environment, and it is tested on a set of held-out environments not used during training. These experiments are designed to evaluate exploration of realistic CMDPs with visually rich observations.      
+      </p>
+
+
+    <p>
+Here we train RND, ICM, NovelD and E3B agents using the intrinsic reward alone, and then evaluate each agent (as well as two random agents) on unseen test environments by measuring how much of each environment has been revealed by the agent’s line of sight over the course of the episode. 
+    </p>
+
+
+    <p>
+      Quantitative results are shown in Figure 4, which shows that the E3B agent reveals significantly more of the test maps than any of the other agents. 
+
+
+<p style="text-align:center;"><img width="400" src="habitat_results.png" alt="Logo"></p>    
+
+      
+
+    <p>
+      Below is an example of the behavior of each of the agents. We see that the E3B agents efficiently explores most of the map, while the other agents do not. These results provide evidence for E3B’s scalability to high-dimensional pixel-based observations, and reinforce its broad applicability.
+      </p>
+
+    
+
+    <div class="centered-content-container">
+      <figure>
+	 <font size="+2">E3B</font>
+	<video width="700" autoplay muted loop playsinline>
+    <source src="videos_for_site/set1/e3b.mp4" type="video/mp4">
+	</video>
+	 <font size="+2">NovelD</font>
+	<video width="700" autoplay muted loop playsinline>
+    <source src="videos_for_site/set1/noveld.mp4" type="video/mp4">
+	</video>
+	 <font size="+2">RND</font>
+	<video width="700" autoplay muted loop playsinline>
+    <source src="videos_for_site/set1/rnd.mp4" type="video/mp4">
+	</video>
+	 <font size="+2">ICM</font>
+	<video width="700" autoplay muted loop playsinline>
+    <source src="videos_for_site/set1/icm.mp4" type="video/mp4">
+	</video>
+	
+      </figure>
+    </div>
+    
+
+<h2> Conclusion </h2>    
+    
+    <p>
+In this work, we identified a fundamental limitation of existing methods for exploration in CMDPs: their performance relies heavily on an episodic count-based term, which is not meaningful when each state is unique. This is a common scenario in realistic applications, and it is difficult to alleviate through feature engineering. To remedy this limitation, we introduce a new method, E3B, which extends episodic count-based methods to continuous state spaces using an elliptical episodic bonus, as well as an inverse dynamics model to automatically extract useful features from states. E3B achieves a new state-of-the-art on a wide range of complex tasks from the MiniHack suite, without the need for feature engineering. Our approach also scales to high-dimensional pixel-based environments, demonstrated by the fact that it matches top exploration methods on Vizdoom and outperforms them in reward-free exploration on Habitat. Future research directions include experimenting with more advanced feature learning methods, and investigating ways to integrate within-episode and across-episode novelty bonuses.      
+      </p>
+
+    <p>
+      </p>
+
+    
+
+<!--
+    <p>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Col 1</th>
+          <th scope="col">Col 2</th>
+          <th scope="col">Col 3</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Exploration</td>
+          <td>Elliptical</td>
+          <td>Episodic</td>
+        </tr>
+        <tr>
+          <td>E</td>
+          <td>3</td>
+          <td>B</td>
+        </tr>
+      </tbody>
+    </table>
+    <figcaption>Table 2: Caption for table.</figcaption>
+    </p>
+-->
+
+  </d-article>
+
+  <d-appendix>
+
+<!--       <h3>Acknowledgements</h3>
+
+      <p>
+      Add any acknowledgements here.
+      </p> -->
+
+      <h3>Citation</h3>
+      <p>
+      For attribution in academic contexts, please cite this work as
+      </p>
+
+      <pre class="citation short">Henaff et al., "Exploration via Elliptical Episodic Bonuses", 2022.</pre>
+
+      <p>BibTeX citation</p>
+      <pre class="citation long">
+@article{henaff2022exploration,
+  title={Exploration via Elliptical Episodic Bonuses},
+  author={Henaff, Mikael and Raileanu, Roberta and Jiang, Minqi and Rockt{\"a}schel, Tim},
+  journal={arXiv preprint arXiv:????.?????},
+  year={2022}
+}</pre>
+
+    <d-bibliography src="dist/bibliography.bib"></d-bibliography>
+  </d-appendix>
+
+  <!-- <distill-footer></distill-footer> -->
+
+</body>
