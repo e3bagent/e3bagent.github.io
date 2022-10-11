@@ -233,21 +233,11 @@ A summary of the method is shown in Figure 3. We define an intrinsic reward base
 
 
 
-    
-    
-
-
-    <!-- Insert video of ACCEL on bipedal walker -->
-
-<p style="text-align:center;"><img width="900" src="dist/img/e3b-overview.png" alt="Logo"></p> 
-    
-<!--    <div class="centered-content-container">
-      <figure>
-        <img id="e3b-overview" src="dist/img/e3b-overview.png"/>
-        <figcaption>Figure 3: Overview of E3B, our algorithm for exploring contextual MDPs.</figcaption>
-      </figure>
-    </div>
--->
+<div class="centered-content-container">
+  <!-- <figure> -->
+  <img width="900" src="dist/img/e3b-overview.svg" alt="Logo"/>
+  <!-- </figure> -->
+</div>
 
 
     <h3>Elliptical Episodic Bonuses</h3>
@@ -426,10 +416,10 @@ In contrast, E3B is able to solve both the tasks, without the need for task-spec
 
     <div class="centered-content-container">
       <figure>
-        <figcaption style="text-align: center;">Figure 5. Behavior of E3B, NovelD-position and NovelD-message on a navigation-based task (top) and a skill-based task (bottom).</figcaption>
-	<video width="1500" autoplay muted loop playsinline>
-    <source src="agent_behavior.mov" type="video/mp4">
-	</video>	
+      <figcaption style="text-align: center;">Figure 5. Behavior of E3B, NovelD-position and NovelD-message on a navigation-based task (top) and a skill-based task (bottom).</figcaption>
+	     <video width="1500" autoplay muted loop playsinline>
+        <source src="agent_behavior.mov" type="video/mp4">
+	     </video>	
       </figure>
     </div>
 
@@ -449,15 +439,10 @@ In contrast, E3B is able to solve both the tasks, without the need for task-spec
     </div>
 -->
     
-
-    
-
     <h3>VizDoom</h3>
 
-    
-    
     <p>
-As our second evaluation testbed, we used the sparse reward, pixel-based VizDoom <d-cite bibtex-key="vizdoom"></d-cite> environments used in prior work <d-cite bibtex-key="ICM, RIDE"></d-cite>. Although these are singleton MDPs, they still constitute challenging exploration problems and probe whether our method scales to continuous high-dimensional pixel-based observations. Results comparing E3B to RIDE, ICM and IMPALA on three versions of the task are shown in Figure 6. IMPALA succeeds on the dense reward task but fails on the two sparse reward ones. E3B is able to solve both versions of the sparse reward task, similar to RIDE and ICM.      
+    As our second evaluation testbed, we used the sparse reward, pixel-based VizDoom <d-cite bibtex-key="vizdoom"></d-cite> environments used in prior work <d-cite bibtex-key="ICM, RIDE"></d-cite>. Although these are singleton MDPs, they still constitute challenging exploration problems and probe whether our method scales to continuous high-dimensional pixel-based observations. Results comparing E3B to RIDE, ICM and IMPALA on three versions of the task are shown in Figure 6. IMPALA succeeds on the dense reward task but fails on the two sparse reward ones. E3B is able to solve both versions of the sparse reward task, similar to RIDE and ICM.      
     </p>
 
     <div class="centered-content-container">
@@ -493,10 +478,7 @@ Here we train RND, ICM, NovelD and E3B agents using the intrinsic reward alone, 
     <p>
       Quantitative results are shown in Figure 4, which shows that the E3B agent reveals significantly more of the test maps than any of the other agents. 
 
-
-<p style="text-align:center;"><img width="400" src="habitat_results.png" alt="Logo"></p>    
-
-      
+    <p style="text-align:center;"><img width="400" src="habitat_results.png" alt="Logo"></p>          
 
     <p>
       Below is an example of the behavior of each of the agents. We see that the E3B agents efficiently explores most of the map, while the other agents do not. These results provide evidence for E3B’s scalability to high-dimensional pixel-based observations, and reinforce its broad applicability.
