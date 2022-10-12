@@ -217,7 +217,7 @@ To address this fundamental limitation, we propose a new method, E3B, which uses
     
     
     <p>
-However, the count-based episodic bonus suffers from a fundamental limitation, which is similar to that faced by count-based approaches in general: if each state is unique, then $$N_e(s_t)$$ will always be 1 and the episodic bonus is no longer meaningful. This is the case for many real-world applications. For example, a household robot’s state as recorded by its camera might include moving trees outside the window, clocks showing the time or images on a television screen which are not relevant for its tasks, but nevertheless make each state unique. Previous works <d-cite bibtex-key="RIDE, AGAC, NovelD"></d-cite> have used the MiniGrid test suite <d-cite bibtex-key="minigrid"></d-cite> for evaluation, where observations are less noisy and do not typically contain irrelevant information. Thus, methods relying on episodic counts have been effective in these scenarios. However, in more complex environments such as MiniHack <d-cite bibtex-key="minihack"></d-cite> or with high-dimensional pixel-based observations, episodic count-based approaches can cease to be viable.
+However, the count-based episodic bonus suffers from a fundamental limitation, which is similar to that faced by count-based approaches in general: if each state is unique, then $$N_e(s_t)$$ will always be 1 and the episodic bonus is no longer meaningful. This is the case for many real-world applications. For example, a household robot’s state as recorded by its camera might include moving trees outside the window, clocks showing the time or images on a television screen which are not relevant for its tasks, but nevertheless make each state unique. Previous works <d-cite bibtex-key="RIDE, AGAC, NovelD"></d-cite> have used the MiniGrid test suite <d-cite bibtex-key="gym_minigrid"></d-cite> for evaluation, where observations are less noisy and do not typically contain irrelevant information. Thus, methods relying on episodic counts have been effective in these scenarios. However, in more complex environments such as MiniHack <d-cite bibtex-key="minihack"></d-cite> or with high-dimensional pixel-based observations, episodic count-based approaches can cease to be viable.
 
       </p>
 
@@ -238,7 +238,7 @@ A summary of the method is shown in Figure 3. We define an intrinsic reward base
     <div class="centered-content-container">
       <figure>
         <img id="e3b-overview" src="dist/img/e3b-overview.png"/>
-        <figcaption>Figure 2: Performance of RIDE, AGAC and NovelD with and without the count-based bonus.</figcaption>
+        <figcaption>Figure 3: Overview of E3B.</figcaption>
       </figure>
     </div>
 
