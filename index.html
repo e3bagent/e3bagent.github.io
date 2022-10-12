@@ -186,16 +186,19 @@ To address this fundamental limitation, we propose a new method, E3B, which uses
 
     <p>
       Table 1 shows the exploration bonuses used for RIDE, AGAC and NovelD - three recently proposed methods for exploration which have been applied to the MiniGrid CMDP environment.
-      Note that all three include a term (marked in blue) which depends on <em>episodic</em> counts. Unlike count-based bonuses which are used in classical tabular RL algorithms, this count-based bonus
+      Note that all three include a term (marked in blue) which depends on <em>episodic</em> counts $$N_e(s)$$. Unlike count-based bonuses which are used in classical tabular RL algorithms, this count-based bonus
       resets after each episode. Although not presented as a central algorithmic feature, we will show below that these episodic counts are in fact essential for good performance. 
       </p>
 
     
 
+
+
+    
     <div class="centered-content-container">
       <figure>
-        <img id="e3b-overview" src="ride_agac_noveld_table.png"/>
-        <figcaption>Table 1. Summary of existing methods for exploring contextual MDPs.</figcaption>
+        <img id="e3b-overview" src="dist/img/ride_agac_noveld_table.png"/>
+        <figcaption>Table 1. Summary of existing methods for exploring contextual MDPs. $$N_e(s)$$ denotes the number of times state $$s$$ has been observed in the current episode.</figcaption>
       </figure>
     </div>
 
@@ -223,7 +226,7 @@ However, the count-based episodic bonus suffers from a fundamental limitation, w
     <h2>Elliptical Episodic Bonuses</h2>
 
     <p>
-In this section we describe Exploration via Elliptical Episodic Bonuses, (E3B), our algorithm for exploration in contextual MDPs. It is designed to address the shortcomings of count-based episodic bonuses described above, with two aims in mind. First, we would like an episodic bonus that can be used with continuous state representations, unlike the count-based bonus which requires discrete states. Second, we would like a representation learning method that only captures information about the environment that is relevant for the task at hand. The first requirement is met by using an elliptical bonus, an idea which has been previously used in the contextual bandit literature and which provides a continuous analog to the count-based bonus. The second requirement is met by using a representation learned with an inverse dynamics model <d-cite bibtex-key="ICM"></d-cite>.      
+In this section we describe Exploration via Elliptical Episodic Bonuses, (E3B), our algorithm for exploration in contextual MDPs. It is designed to address the shortcomings of count-based episodic bonuses described above, with two aims in mind. First, we would like an episodic bonus that can be used with continuous state representations, unlike the count-based bonus which requires discrete states. Second, we would like a representation learning method that only captures information about the environment that is relevant for the task at hand. The first requirement is met by using an elliptical bonus, an idea which has been previously used in the contextual bandit literature <d-cite bibtex-key="Auer2002, Dani2008, LinUCB"></d-cite> and which provides a continuous analog to the count-based bonus. The second requirement is met by using a representation learned with an inverse dynamics model <d-cite bibtex-key="ICM"></d-cite>.      
       </p>
 
     <p>
@@ -232,12 +235,15 @@ A summary of the method is shown in Figure 3. We define an intrinsic reward base
 
 
 
+    <div class="centered-content-container">
+      <figure>
+        <img id="e3b-overview" src="dist/img/e3b-overview.png"/>
+        <figcaption>Figure 2: Performance of RIDE, AGAC and NovelD with and without the count-based bonus.</figcaption>
+      </figure>
+    </div>
 
-<div class="centered-content-container">
-  <!-- <figure> -->
-  <img width="900" src="dist/img/e3b-overview.svg" alt="Logo"/>
-  <!-- </figure> -->
-</div>
+    
+
 
 
     <h3>Elliptical Episodic Bonuses</h3>
@@ -417,7 +423,7 @@ In contrast, E3B is able to solve both the tasks, without the need for task-spec
     <div class="centered-content-container">
       <figure>
       <figcaption style="text-align: center;">Figure 5. Behavior of E3B, NovelD-position and NovelD-message on a navigation-based task (top) and a skill-based task (bottom).</figcaption>
-	     <video width="1500" autoplay muted loop playsinline>
+	     <video width="800" autoplay muted loop playsinline>
         <source src="agent_behavior.mov" type="video/mp4">
 	     </video>	
       </figure>
