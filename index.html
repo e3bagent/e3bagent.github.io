@@ -162,7 +162,7 @@ The approaches above are, however, designed for <em>singleton</em> RL tasks, whe
       <figure>
         <figcaption style="text-align: center;">Figure 1: Examples of Contextual MDPs, where each episode corresponds to a different environment.</figcaption>
 	<video width="100%" autoplay muted loop playsinline>
-    <source src="cmdp_examples.mov" type="video/mp4">
+    <source src="dist/video/cmdp_examples.mov" type="video/mp4">
 	</video>
       </figure>
     </div>
@@ -193,10 +193,6 @@ To address this fundamental limitation, we propose a new method, E3B, which uses
       </p>
 
     
-
-
-
-    
     <div class="centered-content-container">
       <figure>
         <img id="e3b-overview" src="dist/img/ride_agac_noveld_table.png"/>
@@ -211,7 +207,7 @@ To address this fundamental limitation, we propose a new method, E3B, which uses
 
     <div class="centered-content-container">
       <figure>
-        <img id="e3b-overview" src="counts_ablation-crop-1.png"/>
+        <img id="e3b-overview" src="dist/img/counts_ablation-crop-1.png"/>
         <figcaption>Figure 2: Performance of RIDE, AGAC and NovelD with and without the count-based bonus.</figcaption>
       </figure>
     </div>
@@ -345,7 +341,7 @@ b(s_t) = \phi(s_t)^\top C_{t-1}^{-1}\phi(s_t) = \frac{1}{N_e(s_t)}
 The bonus increases the more $$\phi(s_t)$$ is aligned with the eigenvectors corresponding to smaller eigenvalues of $$C_{t-1}$$ (directions of low data density), and decreases the more it is aligned with eigenvectors corresponding to larger eigenvalues (directions of high data density). This is illustrated below for $$n=2$$ dimensions:
     </p>
 
-<p style="text-align:center;"><img width="500" src="ellipse_2d.png" alt="Logo"></p>    
+<p style="text-align:center;"><img width="500" src="dist/img/ellipse_2d.png" alt="Logo"></p>    
 
 
     <p>
@@ -378,7 +374,7 @@ In order to probe the capabilities of existing methods and evaluate E3B, we seek
 NetHack is a notoriously challenging roguelike video game where the agent must navigate through procedurally generated dungeons to recover a magical amulet. 
 The MiniHack tasks contain numerous challenges such as finding and using magical objects, navigating through levels while avoiding lava, and fighting monsters. Furthermore, rewards are sparse and as detailed below, the state representation contains a large amount of information, only some of which is relevant for a given task. This is illustrated below:
 
-<p style="text-align:center;"><img width="400" src="minihack_obs.png" alt="Logo"></p>    
+<p style="text-align:center;"><img width="400" src="dist/img/minihack_obs.png" alt="Logo"></p>    
 
 
       </p>
@@ -426,26 +422,10 @@ In contrast, E3B is able to solve both the tasks, without the need for task-spec
       <figure>
       <figcaption style="text-align: center;">Figure 5. Behavior of E3B, NovelD-position and NovelD-message on a navigation-based task (top) and a skill-based task (bottom).</figcaption>
 	     <video width="100%" autoplay muted loop playsinline>
-        <source src="agent_behavior.mov" type="video/mp4">
+        <source src="dist/video/agent_behavior.mov" type="video/mp4">
 	     </video>	
       </figure>
     </div>
-
-    
-
-<!--    <div class="centered-content-container">
-      <figure>
-        <figcaption style="text-align: center;">Figure 1. Examples of Contextual MDPs, where each episode corresponds to a different environment.</figcaption>
-	<video width="1500" autoplay muted loop playsinline>
-    <source src="minihack_nav_viz.mov" type="video/mp4">
-	</video>
-	<video width="1500" autoplay muted loop playsinline>
-    <source src="minihack_skill_viz.mov" type="video/mp4">
-	</video>
-	
-      </figure>
-    </div>
--->
     
     <h3>VizDoom</h3>
 
@@ -455,7 +435,7 @@ In contrast, E3B is able to solve both the tasks, without the need for task-spec
 
     <div class="centered-content-container">
       <figure>
-        <img id="e3b-overview" src="results_vizdoom.png"/>
+        <img id="e3b-overview" src="dist/img/results_vizdoom.png"/>
         <figcaption>Figure 6: Results on pixel-based VizDoom. Shaded region indicates one standard deviation over 5 seeds.</figcaption>
       </figure>
     </div>
@@ -486,7 +466,7 @@ Here we train RND, ICM, NovelD and E3B agents using the intrinsic reward alone, 
     <p>
       Quantitative results are shown in Figure 4, which shows that the E3B agent reveals significantly more of the test maps than any of the other agents. 
 
-    <p style="text-align:center;"><img width="400" src="habitat_results.png" alt="Logo"></p>          
+    <p style="text-align:center;"><img width="400" src="dist/img/habitat_results.png" alt="Logo"></p>          
 
     <p>
       Below is an example of the behavior of each of the agents. We see that the E3B agents efficiently explores most of the map, while the other agents do not. These results provide evidence for E3B’s scalability to high-dimensional pixel-based observations, and reinforce its broad applicability.
@@ -498,19 +478,19 @@ Here we train RND, ICM, NovelD and E3B agents using the intrinsic reward alone, 
       <figure>
 	 <font size="+2">E3B</font>
 	<video width="100%" autoplay muted loop playsinline>
-    <source src="videos_for_site/set1/e3b.mp4" type="video/mp4">
+    <source src="dist/video/set1/e3b.mp4" type="video/mp4">
 	</video>
 	 <font size="+2">NovelD</font>
 	<video width="100%" autoplay muted loop playsinline>
-    <source src="videos_for_site/set1/noveld.mp4" type="video/mp4">
+    <source src="dist/video/set1/noveld.mp4" type="video/mp4">
 	</video>
 	 <font size="+2">RND</font>
 	<video width="100%" autoplay muted loop playsinline>
-    <source src="videos_for_site/set1/rnd.mp4" type="video/mp4">
+    <source src="dist/video/set1/rnd.mp4" type="video/mp4">
 	</video>
 	 <font size="+2">ICM</font>
 	<video width="100%" autoplay muted loop playsinline>
-    <source src="videos_for_site/set1/icm.mp4" type="video/mp4">
+    <source src="dist/video/set1/icm.mp4" type="video/mp4">
 	</video>
 	
       </figure>
