@@ -74,7 +74,7 @@
     "title": "Exploration via Elliptical Episodic Bonuses",
     "description": "Going beyond count-based exploration for procedurally-generated worlds.",
     "published": "September 14, 2022",
-    "pubUrl": "https://arxiv.org/",
+    "pubUrl": "https://arxiv.org/abs/2210.05805",
     "pubVenue": "NeurIPS 2022",
     "authors": [
       {
@@ -236,7 +236,7 @@ A summary of the method is shown in Figure 3. We define an intrinsic reward base
     <div class="centered-content-container">
       <figure>
         <img id="e3b-overview" src="dist/img/e3b-overview.png"/>
-        <figcaption>Figure 3: Overview of E3B.</figcaption>
+        <figcaption>Figure 3: Overview of E3B. State embeddings are learned using an inverse dynamics model.</figcaption>
       </figure>
     </div>
 
@@ -403,7 +403,7 @@ The MiniHack tasks contain numerous challenges such as finding and using magical
     
     
     <p>
-      We see a different trend for the NovelD-message variant. This version performs reasonably well on skill-based tasks, but much worse than the NovelD-position variant on navigation-based tasks. This highlights that when using the count-based bonus, although certain inductive biases can help for certain tasks, it is difficult to find one which performs well across all of them. 
+      We see an opposite trend for the NovelD-message variant. This version performs very well on skill-based tasks, but much worse than the NovelD-position variant on navigation-based tasks. This highlights that when using the count-based bonus, although certain inductive biases can help for certain tasks, it is difficult to find one which performs well across all of them. 
       </p>
 
     <p>On the other hand, E3B performs well across both the navigation-based tasks and the skill-based tasks, without the need for feature engineering or prior knowledge. Out of all the methods considered, it performs the best across all three metrics 
