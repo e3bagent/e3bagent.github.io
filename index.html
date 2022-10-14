@@ -47,7 +47,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
 
-  <script defer src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"></script>
+  <!-- <script defer src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"></script> -->
   <script defer src="https://cdn.jsdelivr.net/npm/p5@1.2.0/lib/p5.js"></script>
   <script src=https://cdnjs.cloudflare.com/ajax/libs/seedrandom/2.3.10/seedrandom.min.js></script>
 
@@ -74,6 +74,8 @@
     "title": "Exploration via Elliptical Episodic Bonuses",
     "description": "Going beyond count-based exploration for procedurally-generated worlds.",
     "published": "September 14, 2022",
+    "pubUrl": "https://arxiv.org/",
+    "pubVenue": "NeurIPS 2022",
     "authors": [
       {
         "author":"Mikael Henaff",
@@ -113,9 +115,9 @@
   </d-front-matter>
   <div id='cover'>
     <!-- @TODO: Add cover video (Habitat?) -->
-<!--     <video id="cover-video" autoplay muted loop playsinline>
-      <source src="dist/video/cover.mp4" type="video/mp4">
-    </video> -->
+    <video id="cover-video" autoplay muted loop playsinline>
+      <source src="dist/video/e3b_cover.mp4" type="video/mp4">
+    </video>
     <div id="cover-video-tint"></div>
     <d-title id="title">
   <!--     <figure style="grid-column: page; margin: 1rem 0;"><img src="momentum.png"
@@ -147,11 +149,11 @@ In recent years, a number of reinforcement learning (RL) methods have been propo
     E3B sets a new state of the art across 22 challenging environments from the MiniHack suite, without using task-specific prior knowledge. It also matches existing methods on -->
 
     <p>
-Exploration in environments with sparse rewards is a fundamental challenge in reinforcement learning (RL). Exploration has been studied extensively both in theory and in the context of deep RL, and a number of empirically successful methods have been proposed, such as pseudocounts <d-cite bibtex-key="PseudoCounts"></d-cite>, intrinsic curiosity modules (ICM)<d-cite bibtex-key="ICM"></d-cite>, and random network distillation (RND) <d-cite bibtex-key="RND"></d-cite>. These methods rely on intrinsically generated exploration bonuses that reward the agent for visiting states that are novel according to some measure, and have proven effective on hard exploration problems, as exemplified by the Atari games Montezuma’s Revenge and PitFall <d-cite bibtex-key="RND"></d-cite>.      
+Exploration in environments with sparse rewards is a fundamental challenge in reinforcement learning (RL). Exploration has been studied extensively both in theory and in the context of deep RL, and a number of empirically successful methods have been proposed, such as pseudocounts<d-cite bibtex-key="PseudoCounts"></d-cite>, intrinsic curiosity modules (ICM)<d-cite bibtex-key="ICM"></d-cite>, and random network distillation (RND)<d-cite bibtex-key="RND"></d-cite>. These methods rely on intrinsically generated exploration bonuses that reward the agent for visiting states that are novel according to some measure, and have proven effective on hard exploration problems, as exemplified by the Atari games Montezuma’s Revenge and PitFall<d-cite bibtex-key="RND"></d-cite>.      
     </p>
 
     <p>
-The approaches above are, however, designed for <em>singleton</em> RL tasks, where the agent is spawned in the <em>same</em> environment in every episode. Recently, several studies have found that RL agents exhibit poor generalization across environments, and that even minor changes to the environment can lead to substantial degradation in performance <d-cite bibtex-key="overfitting_dl, illuminating_gen, dissection, pmlr-v97-cobbe19a, DBLP:journals/corr/abs-2111-09794"></d-cite>. This has motivated the creation of benchmarks in the Contextual Markov Decision Process (CMDP) framework, where different episodes correspond to different environments that nevertheless share certain characteristics. Examples of CMDPs include procedurally generated (PCG) environments <d-cite bibtex-key="gym_minigrid, minihack, NLE, obstacle_tower, procgen, deepmindlab, crafter, megaverse"></d-cite> or embodied AI tasks where the agent must generalize its behavior to unseen physical spaces at test time <d-cite bibtex-key="habitat19iccv, igibson, 3dworld, sapien"></d-cite>. 
+The approaches above are, however, designed for <em>singleton</em> RL tasks, where the agent is spawned in the <em>same</em> environment in every episode. Recently, several studies have found that RL agents exhibit poor generalization across environments, and that even minor changes to the environment can lead to substantial degradation in performance<d-cite bibtex-key="overfitting_dl, illuminating_gen, dissection, pmlr-v97-cobbe19a, DBLP:journals/corr/abs-2111-09794"></d-cite>. This has motivated the creation of benchmarks in the Contextual Markov Decision Process (CMDP) framework, where different episodes correspond to different environments that nevertheless share certain characteristics. Examples of CMDPs include procedurally generated (PCG) environments<d-cite bibtex-key="gym_minigrid, minihack, NLE, obstacle_tower, procgen, deepmindlab, crafter, megaverse"></d-cite> or embodied AI tasks where the agent must generalize its behavior to unseen physical spaces at test time<d-cite bibtex-key="habitat19iccv, igibson, 3dworld, sapien"></d-cite>. 
     </p>
     
 
@@ -159,14 +161,14 @@ The approaches above are, however, designed for <em>singleton</em> RL tasks, whe
     <div class="centered-content-container">
       <figure>
         <figcaption style="text-align: center;">Figure 1: Examples of Contextual MDPs, where each episode corresponds to a different environment.</figcaption>
-	<video width="1200" autoplay muted loop playsinline>
+	<video width="100%" autoplay muted loop playsinline>
     <source src="cmdp_examples.mov" type="video/mp4">
 	</video>
       </figure>
     </div>
 
 <p>
-Recently, several methods have been proposed which have shown promising performance in PCG environments with sparse rewards, such as RIDE <d-cite bibtex-key="RIDE"></d-cite>, AGAC <d-cite bibtex-key="AGAC"></d-cite> and NovelD <d-cite bibtex-key="NovelD"></d-cite>. These methods propose different intrinsic reward functions, such as the change in representation in a latent space, the divergence between the predictions of a policy and an adversary, or the difference between random network prediction errors at two consecutive states. Although not presented as a central algorithmic feature, these methods also include a count-based bonus which is computed at the episode level.    
+Recently, several methods have been proposed which have shown promising performance in PCG environments with sparse rewards, such as RIDE<d-cite bibtex-key="RIDE"></d-cite>, AGAC<d-cite bibtex-key="AGAC"></d-cite> and NovelD<d-cite bibtex-key="NovelD"></d-cite>. These methods propose different intrinsic reward functions, such as the change in representation in a latent space, the divergence between the predictions of a policy and an adversary, or the difference between random network prediction errors at two consecutive states. Although not presented as a central algorithmic feature, these methods also include a count-based bonus which is computed at the episode level.    
 </p>
 
 
@@ -177,7 +179,7 @@ In this work, we take a closer look at exploration in CMDPs, where each episode 
 
 
     <p>
-To address this fundamental limitation, we propose a new method, E3B, which uses an elliptical bonus <d-cite bibtex-key="Auer2002, Dani2008, LinUCB"></d-cite> at the episode level that can be seen as a natural generalization of a count-based episodic bonus to continuous state spaces, and that is paired with a self-supervised feature learning method using an inverse dynamics model. Our algorithm is simple to implement, scalable to large or infinite state spaces, and achieves state-of-the-art performance across 16 challenging tasks from the MiniHack suite <d-cite bibtex-key="minihack"></d-cite>, without the need for task-specific prior knowledge. It also matches existing methods on hard exploration tasks from the VizDoom environment <d-cite bibtex-key="vizdoom"></d-cite>, and significantly outperforms existing methods in reward-free exploration on the Habitat embodied AI environment <d-cite bibtex-key="habitat19iccv, szot2021habitat"></d-cite>, demonstrating that it scales to rich, high dimensional pixel-based observations and real-world scenarios.       
+To address this fundamental limitation, we propose a new method, E3B, which uses an elliptical bonus<d-cite bibtex-key="Auer2002, Dani2008, LinUCB"></d-cite> at the episode level that can be seen as a natural generalization of a count-based episodic bonus to continuous state spaces, and that is paired with a self-supervised feature learning method using an inverse dynamics model. Our algorithm is simple to implement, scalable to large or infinite state spaces, and achieves state-of-the-art performance across 16 challenging tasks from the MiniHack suite<d-cite bibtex-key="minihack"></d-cite>, without the need for task-specific prior knowledge. It also matches existing methods on hard exploration tasks from the VizDoom environment<d-cite bibtex-key="vizdoom"></d-cite>, and significantly outperforms existing methods in reward-free exploration on the Habitat embodied AI environment<d-cite bibtex-key="habitat19iccv, szot2021habitat"></d-cite>, demonstrating that it scales to rich, high dimensional pixel-based observations and real-world scenarios.       
       </p>
 
 
@@ -217,7 +219,7 @@ To address this fundamental limitation, we propose a new method, E3B, which uses
     
     
     <p>
-However, the count-based episodic bonus suffers from a fundamental limitation, which is similar to that faced by count-based approaches in general: if each state is unique, then $$N_e(s_t)$$ will always be 1 and the episodic bonus is no longer meaningful. This is the case for many real-world applications. For example, a household robot’s state as recorded by its camera might include moving trees outside the window, clocks showing the time or images on a television screen which are not relevant for its tasks, but nevertheless make each state unique. Previous works <d-cite bibtex-key="RIDE, AGAC, NovelD"></d-cite> have used the MiniGrid test suite <d-cite bibtex-key="gym_minigrid"></d-cite> for evaluation, where observations are less noisy and do not typically contain irrelevant information. Thus, methods relying on episodic counts have been effective in these scenarios. However, in more complex environments such as MiniHack <d-cite bibtex-key="minihack"></d-cite> or with high-dimensional pixel-based observations, episodic count-based approaches can cease to be viable.
+However, the count-based episodic bonus suffers from a fundamental limitation, which is similar to that faced by count-based approaches in general: if each state is unique, then $$N_e(s_t)$$ will always be 1 and the episodic bonus is no longer meaningful. This is the case for many real-world applications. For example, a household robot’s state as recorded by its camera might include moving trees outside the window, clocks showing the time or images on a television screen which are not relevant for its tasks, but nevertheless make each state unique. Previous works<d-cite bibtex-key="RIDE, AGAC, NovelD"></d-cite> have used the MiniGrid test suite<d-cite bibtex-key="gym_minigrid"></d-cite> for evaluation, where observations are less noisy and do not typically contain irrelevant information. Thus, methods relying on episodic counts have been effective in these scenarios. However, in more complex environments such as MiniHack<d-cite bibtex-key="minihack"></d-cite> or with high-dimensional pixel-based observations, episodic count-based approaches can cease to be viable.
 
       </p>
 
@@ -226,7 +228,7 @@ However, the count-based episodic bonus suffers from a fundamental limitation, w
     <h2>Elliptical Episodic Bonuses</h2>
 
     <p>
-In this section we describe Exploration via Elliptical Episodic Bonuses, (E3B), our algorithm for exploration in contextual MDPs. It is designed to address the shortcomings of count-based episodic bonuses described above, with two aims in mind. First, we would like an episodic bonus that can be used with continuous state representations, unlike the count-based bonus which requires discrete states. Second, we would like a representation learning method that only captures information about the environment that is relevant for the task at hand. The first requirement is met by using an elliptical bonus, an idea which has been previously used in the contextual bandit literature <d-cite bibtex-key="Auer2002, Dani2008, LinUCB"></d-cite> and which provides a continuous analog to the count-based bonus. The second requirement is met by using a representation learned with an inverse dynamics model <d-cite bibtex-key="ICM"></d-cite>.      
+In this section we describe Exploration via Elliptical Episodic Bonuses, (E3B), our algorithm for exploration in contextual MDPs. It is designed to address the shortcomings of count-based episodic bonuses described above, with two aims in mind. First, we would like an episodic bonus that can be used with continuous state representations, unlike the count-based bonus which requires discrete states. Second, we would like a representation learning method that only captures information about the environment that is relevant for the task at hand. The first requirement is met by using an elliptical bonus, an idea which has been previously used in the contextual bandit literature<d-cite bibtex-key="Auer2002, Dani2008, LinUCB"></d-cite> and which provides a continuous analog to the count-based bonus. The second requirement is met by using a representation learned with an inverse dynamics model<d-cite bibtex-key="ICM"></d-cite>.      
       </p>
 
     <p>
@@ -353,7 +355,7 @@ The bonus increases the more $$\phi(s_t)$$ is aligned with the eigenvectors corr
     <h3>Learned Feature Encoder</h3>
 
     <p>
-    Any feature learning method could in principle be used to learn $$\phi$$. Here we use the inverse dynamics model approach proposed in <d-cite bibtex-key="ICM"></d-cite>, which trains a model $$g$$ along with $$\phi$$ to map each pair of consecutive embeddings $$\phi(s_t), \phi(s_{t+1})$$ to a distribution over actions $$a_t$$ linking them. In our setup, $$\phi$$ is separate from the policy network. The $$g$$ model is trained jointly with $$\phi$$ using the following per-sample loss:
+    Any feature learning method could in principle be used to learn $$\phi$$. Here we use the inverse dynamics model approach proposed in<d-cite bibtex-key="ICM"></d-cite>, which trains a model $$g$$ along with $$\phi$$ to map each pair of consecutive embeddings $$\phi(s_t), \phi(s_{t+1})$$ to a distribution over actions $$a_t$$ linking them. In our setup, $$\phi$$ is separate from the policy network. The $$g$$ model is trained jointly with $$\phi$$ using the following per-sample loss:
 
     <span id="eq:idm"></span>
     <d-math block>
@@ -362,7 +364,7 @@ The bonus increases the more $$\phi(s_t)$$ is aligned with the eigenvectors corr
 \end{equation*}      
     </d-math>
 
-The motivation is that the mapping $$\phi$$ will discard information about the environment which is not useful for predicting the agent's actions. Previous work \cite{ICM} has shown that this can make learning more robust to random noise or other parts of the state which are not controllable by the agent. In our experiments, we compare this to other approaches such as using the policy network <d-cite bibtex-key="ACB"></d-cite> or random networks <d-cite bibtex-key="pathak18largescale, PCPG"></d-cite> to produce state embeddings.     
+The motivation is that the mapping $$\phi$$ will discard information about the environment which is not useful for predicting the agent's actions. Previous work \cite{ICM} has shown that this can make learning more robust to random noise or other parts of the state which are not controllable by the agent. In our experiments, we compare this to other approaches such as using the policy network<d-cite bibtex-key="ACB"></d-cite> or random networks<d-cite bibtex-key="pathak18largescale, PCPG"></d-cite> to produce state embeddings.     
       </p>
     
 
@@ -372,7 +374,7 @@ The motivation is that the mapping $$\phi$$ will discard information about the e
     <h3>MiniHack</h3>
 
     <p>
-In order to probe the capabilities of existing methods and evaluate E3B, we seek CMDP environments which exhibit challenges associated with realistic scenarios, such as sparse rewards, noisy or irrelevant features, and large state spaces. For our first experimental testbed, we opted for the procedurally generated tasks from the MiniHack suite <d-cite bibtex-key="minihack"></d-cite>, which is itself based on the NetHack Learning Environment <d-cite bibtex-key="NLE"></d-cite>.
+In order to probe the capabilities of existing methods and evaluate E3B, we seek CMDP environments which exhibit challenges associated with realistic scenarios, such as sparse rewards, noisy or irrelevant features, and large state spaces. For our first experimental testbed, we opted for the procedurally generated tasks from the MiniHack suite<d-cite bibtex-key="minihack"></d-cite>, which is itself based on the NetHack Learning Environment<d-cite bibtex-key="NLE"></d-cite>.
 NetHack is a notoriously challenging roguelike video game where the agent must navigate through procedurally generated dungeons to recover a magical amulet. 
 The MiniHack tasks contain numerous challenges such as finding and using magical objects, navigating through levels while avoiding lava, and fighting monsters. Furthermore, rewards are sparse and as detailed below, the state representation contains a large amount of information, only some of which is relevant for a given task. This is illustrated below:
 
@@ -423,7 +425,7 @@ In contrast, E3B is able to solve both the tasks, without the need for task-spec
     <div class="centered-content-container">
       <figure>
       <figcaption style="text-align: center;">Figure 5. Behavior of E3B, NovelD-position and NovelD-message on a navigation-based task (top) and a skill-based task (bottom).</figcaption>
-	     <video width="800" autoplay muted loop playsinline>
+	     <video width="100%" autoplay muted loop playsinline>
         <source src="agent_behavior.mov" type="video/mp4">
 	     </video>	
       </figure>
@@ -448,7 +450,7 @@ In contrast, E3B is able to solve both the tasks, without the need for task-spec
     <h3>VizDoom</h3>
 
     <p>
-    As our second evaluation testbed, we used the sparse reward, pixel-based VizDoom <d-cite bibtex-key="vizdoom"></d-cite> environments used in prior work <d-cite bibtex-key="ICM, RIDE"></d-cite>. Although these are singleton MDPs, they still constitute challenging exploration problems and probe whether our method scales to continuous high-dimensional pixel-based observations. Results comparing E3B to RIDE, ICM and IMPALA on three versions of the task are shown in Figure 6. IMPALA succeeds on the dense reward task but fails on the two sparse reward ones. E3B is able to solve both versions of the sparse reward task, similar to RIDE and ICM.      
+    As our second evaluation testbed, we used the sparse reward, pixel-based VizDoom<d-cite bibtex-key="vizdoom"></d-cite> environments used in prior work<d-cite bibtex-key="ICM, RIDE"></d-cite>. Although these are singleton MDPs, they still constitute challenging exploration problems and probe whether our method scales to continuous high-dimensional pixel-based observations. Results comparing E3B to RIDE, ICM and IMPALA on three versions of the task are shown in Figure 6. IMPALA succeeds on the dense reward task but fails on the two sparse reward ones. E3B is able to solve both versions of the sparse reward task, similar to RIDE and ICM.      
     </p>
 
     <div class="centered-content-container">
@@ -461,7 +463,7 @@ In contrast, E3B is able to solve both the tasks, without the need for task-spec
 
 
     <p>
-We emphasize that these are singleton MDPs, where the environment does not change from one episode to the next. Therefore, it is unsurprising that ICM, which was designed for singleton MDPs, succeeds in this task. RIDE is also able to solve the task, consistent with results from prior work <d-cite bibtex-key="RIDE"></d-cite>. The fact that E3B also succeeds provides evidence of its robustness and its applicability to settings with pixel-based observations.      
+We emphasize that these are singleton MDPs, where the environment does not change from one episode to the next. Therefore, it is unsurprising that ICM, which was designed for singleton MDPs, succeeds in this task. RIDE is also able to solve the task, consistent with results from prior work<d-cite bibtex-key="RIDE"></d-cite>. The fact that E3B also succeeds provides evidence of its robustness and its applicability to settings with pixel-based observations.      
       </p>
 
 
@@ -471,7 +473,7 @@ We emphasize that these are singleton MDPs, where the environment does not chang
 
 
     <p>
-As our third experimental setting, we investigate reward-free exploration in Habitat <d-cite bibtex-key="habitat19iccv, szot2021habitat"></d-cite>. Habitat is a platform for embodied AI research which provides
+As our third experimental setting, we investigate reward-free exploration in Habitat<d-cite bibtex-key="habitat19iccv, szot2021habitat"></d-cite>. Habitat is a platform for embodied AI research which provides
 an interface for agents to navigate and act in photorealistic simulations of real indoor environments. At each episode during training, the agent is initialized in a different environment, and it is tested on a set of held-out environments not used during training. These experiments are designed to evaluate exploration of realistic CMDPs with visually rich observations.      
       </p>
 
@@ -495,19 +497,19 @@ Here we train RND, ICM, NovelD and E3B agents using the intrinsic reward alone, 
     <div class="centered-content-container">
       <figure>
 	 <font size="+2">E3B</font>
-	<video width="800" autoplay muted loop playsinline>
+	<video width="100%" autoplay muted loop playsinline>
     <source src="videos_for_site/set1/e3b.mp4" type="video/mp4">
 	</video>
 	 <font size="+2">NovelD</font>
-	<video width="800" autoplay muted loop playsinline>
+	<video width="100%" autoplay muted loop playsinline>
     <source src="videos_for_site/set1/noveld.mp4" type="video/mp4">
 	</video>
 	 <font size="+2">RND</font>
-	<video width="800" autoplay muted loop playsinline>
+	<video width="100%" autoplay muted loop playsinline>
     <source src="videos_for_site/set1/rnd.mp4" type="video/mp4">
 	</video>
 	 <font size="+2">ICM</font>
-	<video width="800" autoplay muted loop playsinline>
+	<video width="100%" autoplay muted loop playsinline>
     <source src="videos_for_site/set1/icm.mp4" type="video/mp4">
 	</video>
 	
