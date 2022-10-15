@@ -2120,7 +2120,7 @@ d-appendix > distill-appendix {
     <div>
       <h3>Full paper</h3>
       ${frontMatter.pubUrl ? `
-        <p><a href="${frontMatter.pubUrl}" target="_blank">${frontMatter.pubVenue}</a></p>` : `
+        <p><a class="paper-link" href="${frontMatter.pubUrl}" target="_blank">${frontMatter.pubVenue}</a></p>` : `
         <p></p>`}
     </div>
   </div>
